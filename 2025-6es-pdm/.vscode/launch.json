@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "aula4",
+            "cwd": "aula4",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "aula4 (profile mode)",
+            "cwd": "aula4",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "aula4 (release mode)",
+            "cwd": "aula4",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
