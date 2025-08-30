@@ -11,15 +11,12 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // initialRoute: '/',
+      initialRoute: '/ProfilePage',
       routes: {
         '/ProfilePage': (context) => const ProfilePage(),
         '/ProfileFollowingPage': (context) => const ProfilesFollowingPage(),
       },
-      home: Scaffold(
-        appBar: AppBar(title: const Text("Perfis"), centerTitle: true),
-        body: const Center(child: ProfilePage()),
-      ),
+      home: const Center(child: ProfilePage()),
     );
   }
 }
@@ -43,98 +40,103 @@ class _ProfilesPage extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  if (perfilAtualIndex > 0) {
-                    perfilAtualIndex--;
-                  } else {
-                    perfilAtualIndex = perfis.length - 1;
-                  }
-                });
-              },
-              style: TextButton.styleFrom(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-                side: BorderSide.none,
-              ),
-              child: const Text("<", style: TextStyle(fontSize: 32)),
-            ),
-            Spacer(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage(
-                    "assets/${perfis[perfilAtualIndex].imagem}",
+    return Scaffold(
+      appBar: AppBar(title: const Text("Perfis"), centerTitle: true),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    if (perfilAtualIndex > 0) {
+                      perfilAtualIndex--;
+                    } else {
+                      perfilAtualIndex = perfis.length - 1;
+                    }
+                  });
+                },
+                style: TextButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
+                  side: BorderSide.none,
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  perfis[perfilAtualIndex].nome,
-                  style: TextStyle(fontSize: 24),
-                ),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      perfis[perfilAtualIndex].alternarSeguir();
-                    });
-                  },
-                  child: Text(
-                    perfis[perfilAtualIndex].seguindo == false
-                        ? "Seguir"
-                        : "Deixar de seguir",
+                child: const Text("<", style: TextStyle(fontSize: 32)),
+              ),
+              Spacer(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage(
+                      "assets/${perfis[perfilAtualIndex].imagem}",
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Spacer(),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  if (perfilAtualIndex < perfis.length - 1) {
-                    perfilAtualIndex++;
-                  } else {
-                    perfilAtualIndex = 0;
-                  }
-                });
-              },
-              style: TextButton.styleFrom(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-                side: BorderSide.none,
+                  const SizedBox(height: 16),
+                  Text(
+                    perfis[perfilAtualIndex].nome,
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        perfis[perfilAtualIndex].alternarSeguir();
+                      });
+                    },
+                    child: Text(
+                      perfis[perfilAtualIndex].seguindo == false
+                          ? "Seguir"
+                          : "Deixar de seguir",
+                    ),
+                  ),
+                ],
               ),
-              child: const Text(
-                ">",
-                style: TextStyle(fontSize: 32, color: Colors.black),
+              Spacer(),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    if (perfilAtualIndex < perfis.length - 1) {
+                      perfilAtualIndex++;
+                    } else {
+                      perfilAtualIndex = 0;
+                    }
+                  });
+                },
+                style: TextButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  side: BorderSide.none,
+                ),
+                child: const Text(
+                  ">",
+                  style: TextStyle(fontSize: 32, color: Colors.black),
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 48),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              "/ProfileFollowingPage",
-              arguments: {
-                "seguindo": perfis.where((perfil) => perfil.seguindo).toList(),
-              },
-            );
-          },
-          child: const Text("Ver quem eu sigo"),
-        ),
-      ],
+            ],
+          ),
+          const SizedBox(height: 48),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                "/ProfileFollowingPage",
+                arguments: {
+                  "seguindo": perfis
+                      .where((perfil) => perfil.seguindo)
+                      .toList(),
+                },
+              );
+            },
+            child: const Text("Ver quem eu sigo"),
+          ),
+        ],
+      ),
     );
   }
 }
